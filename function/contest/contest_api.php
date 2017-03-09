@@ -11,7 +11,9 @@ function apiHandle()
     switch( $param )
     {
         case 'balloon':
-        case 'bangkok_results_before':
+        case 'new':
+        case 'modify':
+		case 'bangkok_results_before':
         case 'bangkok_results_final':
             break;
             
