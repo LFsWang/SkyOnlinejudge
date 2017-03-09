@@ -63,6 +63,10 @@ $(document).ready(function(){
                 ]),'modify-contest-from');
             ?>
         </div><!--Main end-->
+        <div class="col-lg-10">
+            <h1>填寫說明</h2><br>
+            <h2>題目列表:</h2>ptag:pid:state(state:0->hidden,1->normal,2->readonly)
+        </div>
     </div>
     <br>
 </div>
