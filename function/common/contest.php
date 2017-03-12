@@ -158,18 +158,16 @@ class Contest extends CommonObject
             throw new \Exception('CONT_ID ERROR');
         if( $this->flag_modify_problems )
         {
-            $i = 0;
             $tcontest_problems = \DB::tname('contest_problem');
             if( \DB::queryEx("DELETE FROM `$tcontest_problems` WHERE `cont_id`=?",$this->cont_id())===false )
                 throw \DB::$last_exception;
             foreach( $this->problems_update as $row )
             {
                 if( \DB::queryEx("INSERT INTO `$tcontest_problems`(`cont_id`, `pid`, `ptag`, `state`, `priority`) VALUES (?,?,?,?,?)"
-                    ,$this->cont_id(),$row[1],$row[0],$row[2],$i+1) === false )
+                    ,$this->cont_id(),$row[1],$row[0],$row[2],$row[3]) === false )
                 {
                     throw \DB::$last_exception;
                 }
-                $i++;
             }
         }
         
@@ -241,7 +239,8 @@ class Contest extends CommonObject
                 $ptag = $r->ptag;
                 $pid = $r->pid;
                 $pstate = $r->state;
-                $output = $ptag.':'.$pid.':'.$pstate;
+                $priority = $r->priority;
+                $output = $ptag.':'.$pid.':'.$pstate.':'.$priority;
                 $data_output[] = $output;
             }
         }
