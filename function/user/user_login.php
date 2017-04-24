@@ -6,7 +6,7 @@ if (!defined('IN_SKYOJSYSTEM')) {
 
 function loginHandle()
 {
-    global $_E,$_G;
+    global $_E,$_G,$_config;
     if( $_G['uid'] ) {
         \Render::ShowMessage('你不是登入了!?');
         exit(0);
@@ -15,6 +15,7 @@ function loginHandle()
     $email = \SKYOJ\safe_post('email');
     $AESenpass = \SKYOJ\safe_post('password');
     $GB = \SKYOJ\safe_post('GB');
+	$user_ip = \SKYOJ\get_ip();
 
     if( isset($email,$AESenpass,$GB) ) {
         if (!\userControl::CheckToken('LOGIN')) {
@@ -29,7 +30,7 @@ function loginHandle()
         $decode = openssl_decrypt($AESenpass,'aes-256-cbc',$key,OPENSSL_ZERO_PADDING,$iv);
         $password = rtrim($decode, "\0");
 
-        $user = login($email, $password);
+        $user = login($email, $password, $user_ip);
         if (!$user[0]) {
             $_E['template']['alert'] = $user[1];
             \LOG::msg(\Level::Notice, "<$email> want to login but fail.(".$user[1].')');
