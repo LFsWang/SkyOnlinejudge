@@ -76,7 +76,7 @@ class Container extends \SkyOJ\Core\CommonObject implements \SkyOJ\Core\Permissi
     {
         //return $this->readable($user) && $this->isSubmitFuncOpen();
         //TODO
-        return true;
+        return $user->isLogin();
     }
 
     public function getObjLevel():int
